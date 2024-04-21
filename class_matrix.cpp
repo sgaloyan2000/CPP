@@ -9,6 +9,9 @@ class Matrix{
     int row;
     int column;
 public:
+    Matrix(){
+        matrix = nullptr;
+    }
     Matrix(int rows, int columns){
         row = rows;
         column = columns;
@@ -22,6 +25,41 @@ public:
         }
     }
     
+    Matrix (const Matrix& obj){
+        row = obj.row;
+        column = obj.column;
+        matrix = new int*[row];
+        for (int i = 0; i < row; ++i)
+            matrix[i] = new int[column];
+        for (int i=0; i<row; ++i)
+            for(int j=0; j<column; ++j)
+                matrix[i][j] = obj.matrix[i][j];
+    }
+    Matrix& operator = (const Matrix& obj){
+        row = obj.row;
+        column = obj.column;
+        matrix = new int*[row];
+        for (int i = 0; i < row; ++i)
+            matrix[i] = new int[column];
+        for (int i=0; i<row; ++i)
+            for(int j=0; j<column; ++j)
+                matrix[i][j] = obj.matrix[i][j];
+        return *this;
+    }
+    Matrix operator+(const Matrix& obj){
+        if (row != obj.row || column != obj.column) {
+            std::cout << "Parameters of matrices you're trying to sum do not match" << std::endl;
+            return Matrix(0, 0);
+        } else {
+            Matrix temp(row, column);
+            for (int i = 0; i < row; ++i) {
+                for (int j = 0; j < column; ++j) {
+                    temp.matrix[i][j] = matrix[i][j] + obj.matrix[i][j];
+                }
+            }
+            return temp;
+        }
+    }
     void printer() {
     for(int i = 0; i < row; i++) {
         for(int j = 0; j < column; j++) {
@@ -56,11 +94,9 @@ public:
                 delete[] matrix[i];
         
         delete[] matrix;
+        std::cout<<"des"<<std::endl;
     }
 };
-
-
-
 
 
 
@@ -70,12 +106,16 @@ int main() {
     std::cin >> row;
     std::cout << "Input the count of columns: ";
     std::cin >> column;
-    Matrix matrix(row,column);
-    matrix.printer();
-    matrix.rotate();
-    matrix.printer();
-  
+    Matrix matrix1(row,column);
+    matrix1.printer();
+    Matrix matrix2(matrix1);
+    matrix2.printer();
+    Matrix matrix3;
+    matrix3 = matrix1; 
+    matrix3.printer();
+    Matrix matrix4 = matrix1 + matrix2;
+    matrix4.printer();
 
-
+    
     return 0;
 }
