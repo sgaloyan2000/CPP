@@ -36,6 +36,9 @@ public:
                 matrix[i][j] = obj.matrix[i][j];
     }
     Matrix& operator = (const Matrix& obj){
+        for (int i = 0; i < row; ++i) 
+                delete[] matrix[i];
+        delete[] matrix;
         row = obj.row;
         column = obj.column;
         matrix = new int*[row];
