@@ -8,7 +8,7 @@ public:
     virtual void mark() = 0;
     vehicle(){}
     vehicle(int input_year):year(input_year){}
-    ~vehicle(){}
+    virtual ~vehicle(){}
 };
 
 class car:public vehicle{
