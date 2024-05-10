@@ -1,10 +1,20 @@
 #include <iostream>
 class animal{
+    static int count;
 public:
-    animal (){ std:: cout << __func__<< std::endl;}
+    animal (){ 
+        std:: cout << __func__<< std::endl;
+        count++;
+    }
     virtual ~animal (){ std:: cout << __func__<< std::endl;}
+    int get_count(){
+        return count;
+    }
     virtual void voice() = 0;
 };
+
+int animal::count = 0;
+
 class dog:public animal{
 public:
     dog(){ std:: cout << __func__<< std::endl;}
@@ -53,6 +63,8 @@ int main()
     ptr[2] = new fish();
     ptr[3] = new lion();
     ptr[4] = new wolf();
+    
+    std::cout<<ptr[0]->get_count()<<std::endl;
     
     for(int i = 0; i < 5; ++i) {
         ptr[i]->voice();
