@@ -4,27 +4,49 @@ class array{
     int* ptr = nullptr;
     int size;
 public:
-    array(){}
+    array(){
+        this->size = 0;
+    }
     array(int size)
     {
         this->size = size;
-        int ptr1[size];
-        ptr = ptr1;
+        ptr = new int(size);
+    }
+    array (const array& obj){
+        this->size = obj.size;
+        ptr = new int(size);
+        for(int i=0; i<size; i++){
+            ptr[i] = obj.ptr[i];
+        }
+    }
+    array& operator = (const array& obj){
+        if(this == &obj){
+            return *this;
+        }
+        else{
+            this->size = obj.size;
+            for(int i=0; i<size; i++){
+                this->ptr[i] = obj.ptr[i];
+            }
+            return *this;
+        }
     }
     int& operator [] (const int& index){
         return *(ptr+index);
     }
-    friend std::ostream& operator << (std::ostream& os,const array& obj);
-};
-std::ostream& operator << (std::ostream& os,const array& obj){
+    friend std::ostream& operator << (std::ostream& os,const array& obj){
         for (int i=0; i<obj.size; i++){
             os<<obj.ptr[i]<<' ';
         }
         return os;
     }
+    ~array(){
+        delete ptr;
+    }
+};
+
 
 int main(){
-    array a;
     array b(5);
     for (int i=0; i<5; i++){
         b[i]=i;
