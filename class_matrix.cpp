@@ -3,7 +3,6 @@
 #include <ctime>
 
 
-
 class Matrix{
     int** matrix;
     int row;
@@ -63,12 +62,31 @@ public:
             return temp;
         }
     }
-    void printer() {
-    for(int i = 0; i < row; i++) {
-        for(int j = 0; j < column; j++) {
-            std::cout << matrix[i][j] << " ";
+    // postfix operator ++ (+=3)
+    Matrix operator ++ (int) {
+        Matrix temp = *this;
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < column; j++) 
+                matrix[i][j] += 3;
         }
-        std::cout << std::endl;
+        return temp;
+    }
+    // prefix operator ++ (+=3)
+    Matrix& operator ++ () {
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < column; j++) 
+                matrix[i][j] += 3;
+        }
+        return *this;
+    }
+    void operator () (){
+        for(int i = 0; i < row; i++) 
+        {
+            for(int j = 0; j < column; j++) 
+            {
+                std::cout << matrix[i][j] << " ";
+            }
+            std::cout << std::endl;
         }
         std::cout << std::endl;
     }
@@ -97,7 +115,6 @@ public:
                 delete[] matrix[i];
         
         delete[] matrix;
-        std::cout<<"des"<<std::endl;
     }
 };
 
@@ -110,14 +127,18 @@ int main() {
     std::cout << "Input the count of columns: ";
     std::cin >> column;
     Matrix matrix1(row,column);
-    matrix1.printer();
-    Matrix matrix2(matrix1);
-    matrix2.printer();
-    Matrix matrix3;
-    matrix3 = matrix1; 
-    matrix3.printer();
-    Matrix matrix4 = matrix1 + matrix2;
-    matrix4.printer();
+    matrix1();
+    // Matrix matrix2(matrix1);
+    // matrix2();
+    // Matrix matrix3;
+    // matrix3 = matrix1; 
+    // matrix3();
+    // Matrix matrix4 = matrix1 + matrix2;
+    // matrix4();
+    (++matrix1)();
+    (matrix1++)();
+    matrix1();
+
 
     
     return 0;
