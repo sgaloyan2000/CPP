@@ -2,16 +2,17 @@
 #include <cstdlib>
 #include <ctime>
 
-
 class Matrix{
     int** matrix;
     int row;
     int column;
 public:
     Matrix(){
+        std::cout<<"Default constructor"<<std::endl;
         matrix = nullptr;
     }
     Matrix(int rows, int columns){
+        std::cout<<"Parametrized constructor"<<std::endl;
         row = rows;
         column = columns;
         matrix = new int*[rows];
@@ -25,6 +26,7 @@ public:
     }
     
     Matrix (const Matrix& obj){
+        std::cout<<"Copy constructor"<<std::endl;
         row = obj.row;
         column = obj.column;
         matrix = new int*[row];
@@ -34,7 +36,35 @@ public:
             for(int j=0; j<column; ++j)
                 matrix[i][j] = obj.matrix[i][j];
     }
+    Matrix (Matrix&& obj){
+        std::cout<<"Move constructor"<<std::endl;
+        row = obj.row;
+        column = obj.column;
+        matrix = obj.matrix;
+        obj.column = 0;
+        obj.row = 0;
+        obj.matrix = nullptr;
+    }
+    Matrix& operator= (Matrix&& obj){
+    std::cout<<"Move operator ="<<std::endl;
+    if (this != &obj){
+        for (int i=0; i<row; ++i) 
+            delete[] matrix[i];
+        delete[] matrix;
+        
+        row = obj.row;
+        column = obj.column;
+        matrix = obj.matrix;
+
+        obj.row = 0;
+        obj.column = 0;
+        obj.matrix = nullptr;
+    }
+    return *this;
+}
+
     Matrix& operator = (const Matrix& obj){
+        std::cout<<"operator ="<<std::endl;
         for (int i = 0; i < row; ++i) 
                 delete[] matrix[i];
         delete[] matrix;
@@ -128,16 +158,20 @@ int main() {
     std::cin >> column;
     Matrix matrix1(row,column);
     matrix1();
-    // Matrix matrix2(matrix1);
+    Matrix matrix2(matrix1);
     // matrix2();
     // Matrix matrix3;
     // matrix3 = matrix1; 
     // matrix3();
-    // Matrix matrix4 = matrix1 + matrix2;
+    //Matrix matrix4 = matrix1 + matrix2;
     // matrix4();
-    (++matrix1)();
-    (matrix1++)();
-    matrix1();
+    //(++matrix1)();
+    // (matrix1++)();
+    //matrix1();
+    Matrix matrix5(matrix1 + matrix2);
+    matrix5();
+    Matrix matrix6;
+    matrix6= Matrix(matrix5);
 
 
     
