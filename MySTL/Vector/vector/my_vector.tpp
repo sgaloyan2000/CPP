@@ -1,9 +1,3 @@
-//
-//  my_vector.cpp
-//  homework
-//
-//  Created by Serzh Galoyan on 28.05.24.
-//
 #include "my_vector.hpp"
 
 template <class T>
@@ -11,6 +5,13 @@ myvector<T>::myvector():m_size(0),m_capacity(0),ptr(nullptr){}
 
 template <class T>
 myvector<T>::myvector(int size):m_size(size),m_capacity(size*2),ptr(new T[size*2]){}
+
+template <class T>
+myvector<T>::myvector(std::initializer_list<T> initlist):m_size(initlist.size()),m_capacity(2*m_size),ptr(new T[m_capacity])
+{
+    for(int i=0; i<m_size ;i++)
+        ptr[i] = initlist.begin()[i];
+}
 
 template <class T>
 myvector<T>::myvector(const myvector& obj){
@@ -93,4 +94,77 @@ myvector<T>::~myvector()
 {
     delete[] ptr;
     ptr = nullptr;
+}
+template <class T>
+void myvector<T>::pop_back()
+{
+    if (m_size > 0) {
+        --m_size;
+        ptr[m_size].~T();
+    }
+    else
+        std::cout<<"Vector is empty"<<std::endl;
+}
+template <class T>
+void myvector<T>::pop_front()
+{
+    if(m_size > 0){
+        ptr[0].~T();
+        for(int i=1; i<m_size;i++)
+            ptr[i-1] = ptr[i];
+        --m_size;
+    }
+    else
+        std::cout<<"Vector is empty"<<std::endl;
+}
+template <class T>
+void myvector<T>::push_front(const T& obj)
+{
+    if (m_size == m_capacity)
+        m_capacity = (m_capacity == 0) ? 1 : 2 * m_capacity;
+    
+    T* temp = new T[m_capacity];
+    for (int i = 1; i <= m_size; ++i)
+        temp[i] = ptr[i-1];
+    
+    temp[0] = obj;
+    delete[] ptr;
+    ptr = temp;
+    ++m_size;
+    
+}
+template <class T>
+void myvector<T>::insert(const T& obj, const int& index)
+{
+    if(index > 0 && index < m_size){
+        if (m_size == m_capacity)
+            m_capacity = (m_capacity == 0) ? 1 : 2 * m_capacity;
+        
+        T* temp = new T[m_capacity];
+        for (int i = 0; i < index; ++i)
+            temp[i] = ptr[i];
+        
+        temp[index] = obj;
+        for (int i = index+1; i<=m_size; i++)
+            temp[i] = ptr[i-1];
+        
+        delete[] ptr;
+        ptr = temp;
+        ++m_size;
+    }
+    else if(index == 0){
+        this->push_front(obj);
+    }
+    else if(index == m_size){
+        this->push_back(obj);
+    }
+    else
+        std::cout<<"Index is out of range "<<std::endl;
+}
+template <class T>
+void myvector<T>::print(){
+    for(int i=0; i<m_size; i++){
+        std::cout<<ptr[i]<<" ";
+    }
+    std::cout<<std::endl;
 }
