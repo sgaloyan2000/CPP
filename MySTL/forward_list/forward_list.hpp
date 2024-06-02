@@ -17,6 +17,9 @@ public:
     void display() const;
     void pop_front();
     void insert(const T&, const int&);
+    void push_back(const T&);
+    void make_cycle();
+    bool has_cycle();
     bool empty();
     ~forward_list();
 private:
