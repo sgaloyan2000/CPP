@@ -1,4 +1,5 @@
 #include "forward_list.hpp"
+#include <stack>
 template<typename T>
 forward_list<T>::Node::Node() : ptr(nullptr) {}
     
@@ -96,6 +97,42 @@ bool forward_list<T>::has_cycle(){
         }
     }
     return false;
+}
+template<typename T>
+void forward_list<T>:: reverse(){
+    if(head){
+        std::stack<T> st;
+        Node* temp = head;
+        while(temp){
+            st.push(temp->obj);
+            temp = temp->next();
+        }
+        temp = head;
+        while(!st.empty()){
+            temp->obj = st.top();
+            temp = temp->next();
+            st.pop();
+        }
+    }
+    else return;
+}
+template<typename T>
+T forward_list<T>::get_n_element_from_back(const int& index){
+    reverse();
+    T t;
+    int counter = 0;
+    Node* temp = head;
+    while(temp){
+        if(counter == index){
+            t = temp->obj;
+            reverse();
+            return t;
+        }
+        counter++;
+        temp = temp->next();
+    }
+    std::cerr<<"index is out of forward_list range"<<std::endl;
+    return -1;
 }
 template<typename T>
 forward_list<T>::~forward_list() {
