@@ -22,5 +22,8 @@ int main() {
     std::cout<<fl.get_n_element_from_back(1)<<std::endl;
     std::cout<<std::endl;
     fl.display();
+//    fl.reverse();
+//    fl.display();
+    
     return 0;
 }
