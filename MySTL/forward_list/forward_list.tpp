@@ -98,8 +98,10 @@ bool forward_list<T>::has_cycle(){
     }
     return false;
 }
+
+/*
 template<typename T>
-void forward_list<T>:: reverse(){
+void forward_list<T>:: reverse(){  ////////////// reverse algorithm with stack
     if(head){
         std::stack<T> st;
         Node* temp = head;
@@ -116,8 +118,29 @@ void forward_list<T>:: reverse(){
     }
     else return;
 }
+*/
+
+
 template<typename T>
-T forward_list<T>::get_n_element_from_back(const int& index){
+void forward_list<T>:: reverse(){ ////////////// reverse algorithm without using additional space
+    if(!head){
+        return;
+    }
+    Node* prev = nullptr;
+    Node* current = head;
+    Node* next = nullptr;
+    
+    while(current){
+        next = current->next();
+        current->ptr = prev;
+        prev = current;
+        current = next;
+    }
+    head = prev;
+}
+/*
+template<typename T>
+T forward_list<T>::get_n_element_from_back(const int& index){ ////////  Get n-th element with reversing
     reverse();
     T t;
     int counter = 0;
@@ -133,6 +156,28 @@ T forward_list<T>::get_n_element_from_back(const int& index){
     }
     std::cerr<<"index is out of forward_list range"<<std::endl;
     return -1;
+}
+*/
+
+template<typename T>
+T forward_list<T>::get_n_element_from_back(const int& index){  ////////  Get n-th element without reversing
+    int size = 0;
+    Node* temp = head;
+    while(temp){
+        size++;
+        temp = temp->next();
+    }
+    if(index<0 || index>= size){
+        std::cerr<<"index is out of forward_list range"<<std::endl;
+        return -1;
+    }
+    temp = head;
+    int counter = size-index-1;
+    while(counter){
+        counter--;
+        temp = temp->next();
+    }
+    return temp->obj;
 }
 template<typename T>
 forward_list<T>::~forward_list() {
