@@ -19,7 +19,7 @@ int main() {
     //fl.display();
     //std::cout<<fl.has_cycle()<<std::endl;
     //fl.reverse();
-    std::cout<<fl.get_n_element_from_back(1)<<std::endl;
+    std::cout<<fl.get_n_element_from_back(0)<<std::endl;
     std::cout<<std::endl;
     fl.display();
 //    fl.reverse();
