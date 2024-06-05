@@ -158,7 +158,7 @@ T forward_list<T>::get_n_element_from_back(const int& index){ ////////  Get n-th
     return -1;
 }
 */
-
+/*
 template<typename T>
 T forward_list<T>::get_n_element_from_back(const int& index){  ////////  Get n-th element without reversing
     int size = 0;
@@ -178,6 +178,30 @@ T forward_list<T>::get_n_element_from_back(const int& index){  ////////  Get n-t
         temp = temp->next();
     }
     return temp->obj;
+}
+*/
+template<typename T>
+T forward_list<T>::get_n_element_from_back(const int& index){  ////////  Get n-th element without size
+    Node* temp1 = head;
+    Node* temp2 = head;
+    int counter = 0;
+    bool condition = false;
+    while(temp1->next()){
+        if(counter != index){
+            temp1 = temp1->next();
+            counter++;
+            continue;
+        }
+        condition = true;
+        temp2 = temp2->next();
+        temp1 = temp1->next();
+    }
+    if(condition)
+        return temp2->obj;
+    else{
+        std::cerr<<"Index is out of list range"<<std::endl;
+        return -1;
+    }
 }
 template<typename T>
 forward_list<T>::~forward_list() {
