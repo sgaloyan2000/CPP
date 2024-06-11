@@ -215,3 +215,41 @@ forward_list<T>::~forward_list() {
             delete temp;
         }
 }
+template<typename T>
+forward_list<T>::input_iterator::input_iterator(Node* p) : iter(p){}
+
+template<typename T>
+T& forward_list<T>::input_iterator::operator*() const{
+    return iter->obj;
+}
+template<typename T>
+T* forward_list<T>::input_iterator::operator->() const{
+    return &(iter->obj);
+}
+template<typename T>
+typename forward_list<T>::input_iterator& forward_list<T>::input_iterator::operator++(){
+    iter = iter->next();
+    return *this;
+}
+template<typename T>
+typename forward_list<T>::input_iterator forward_list<T>::input_iterator::operator++(int){
+    input_iterator temp = *this;
+    iter = iter->next();
+    return temp;
+}
+template<typename T>
+bool forward_list<T>::input_iterator::operator==(const input_iterator& obj)const{
+    return iter == obj.iter;
+}
+template<typename T>
+bool forward_list<T>::input_iterator::operator!=(const input_iterator& obj)const{
+    return iter != obj.iter;
+}
+template <typename T>
+typename forward_list<T>::input_iterator forward_list<T>::begin(){
+    return input_iterator(head);
+}
+template <typename T>
+typename forward_list<T>::input_iterator forward_list<T>::end(){
+    return input_iterator(nullptr);
+}
