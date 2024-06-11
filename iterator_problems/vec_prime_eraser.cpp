@@ -16,10 +16,12 @@ void printer(const std::vector<int>& vec){
     std::cout<<std::endl;
 }
 void eraser(std::vector<int>& vec){
-    for(auto i = vec.begin(); i != vec.end();++i){
+    for(auto i = vec.begin(); i != vec.end();){
         if(is_prime(*i)){
             i = vec.erase(i);
-            i--;
+        }
+        else{
+            i++;
         }
     }
 }
