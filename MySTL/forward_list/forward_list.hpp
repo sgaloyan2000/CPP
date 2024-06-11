@@ -12,7 +12,20 @@ public:
         Node(const T&, Node*);
         Node* next();
     };
+    class input_iterator{
+        Node* iter;
+    public:
+        input_iterator(Node*);
+        T& operator *() const;
+        T* operator ->() const;
+        input_iterator& operator ++();
+        input_iterator operator ++(int);
+        bool operator == (const input_iterator&)const;
+        bool operator != (const input_iterator&)const;
+    };
     forward_list();
+    input_iterator begin();
+    input_iterator end();
     void push_front(const T&);
     void display() const;
     void pop_front();
