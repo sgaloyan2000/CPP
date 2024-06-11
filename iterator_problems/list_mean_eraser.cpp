@@ -18,10 +18,12 @@ int mean (const std::list<int>& l){
     return m/l.size();
 }
 void eraser(std::list<int>& l, int mean){
-    for(auto i = l.begin(); i != l.end();++i){
+    for(auto i = l.begin(); i != l.end();){
         if(*i<mean){
             i = l.erase(i);
-            i--;
+        }
+        else{
+            i++;
         }
     }
 }
