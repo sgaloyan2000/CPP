@@ -1,7 +1,7 @@
 #include <iostream>
 #include "forward_list.hpp"
 template <class T>
-void print(forward_list<T> fl, typename forward_list<T>::input_iterator beg, typename forward_list<T>::input_iterator end){
+void print(forward_list<T>& fl, typename forward_list<T>::input_iterator beg, typename forward_list<T>::input_iterator end){
     while (beg != end) {
         std::cout<<*beg<<" ";
         beg++;
