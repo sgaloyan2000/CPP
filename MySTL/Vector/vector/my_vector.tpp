@@ -63,7 +63,44 @@ template <class T>
 T& myvector<T>::operator [] (int index){
     return ptr[index];
 }
+template <class T>
+void myvector<T>::resize(const int& size){
+    if(size == m_size){
+        return;
+    }
+    if(size < m_size){
+        std::cerr<<"input size is smaller than existing one"<<std::endl;
+        return;
+    }
+    T* temp = new T[size*2];
+    for (int i = 0; i < size; ++i)
+    {
+        if(i<m_size)
+            temp[i] = ptr[i];
+        else
+            temp[i] = T();
+    }
+    delete[] ptr;
+    ptr = temp;
+    m_size = size;
+    m_capacity = size*2;
     
+}
+template <class T>
+void myvector<T>::reserve(const int& capacity){
+    if (capacity <= m_capacity) {
+        return;
+    }
+
+    T* temp = new T[capacity];
+    for (int i = 0; i < m_size; ++i) {
+        temp[i] = ptr[i];
+    }
+
+    delete[] ptr;
+    ptr = temp;
+    m_capacity = capacity;
+}
 template <class T>
 void myvector<T>::push_back(const T& obj) {
     if (m_size == m_capacity) {
