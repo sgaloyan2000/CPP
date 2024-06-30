@@ -23,6 +23,8 @@ public:
     void pop_front();
     int get_size();
     int get_capacity();
+    void resize(const int&);
+    void reserve(const int&);
     bool empty();
     ~myvector();
 };
