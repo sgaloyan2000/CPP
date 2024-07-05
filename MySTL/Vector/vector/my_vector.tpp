@@ -205,3 +205,10 @@ void myvector<T>::print(){
     }
     std::cout<<std::endl;
 }
+template <class T>
+T& myvector<T>::at(const int& index){
+    if(index >= m_size){
+        throw std::out_of_range("Index is out of range");
+    }
+    return ptr[index];
+}
