@@ -35,6 +35,9 @@ int main ()
     catch(std::out_of_range& e){
         std::cerr<<e.what()<<std::endl;
     }
+    catch(MyException& e){
+        std::cerr<<e.what()<<std::endl;
+    }
     
     return 0;
 }
