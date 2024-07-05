@@ -1,4 +1,10 @@
 #include "my_vector.hpp"
+#include <exception>
+
+const char* MyException::what() const noexcept
+{
+    return "My custom exception occurred!";
+}
 
 template <class T>
 myvector<T>::myvector():m_size(0),m_capacity(0),ptr(nullptr){}
@@ -205,10 +211,24 @@ void myvector<T>::print(){
     }
     std::cout<<std::endl;
 }
+/*
+std::exception
 template <class T>
 T& myvector<T>::at(const int& index){
     if(index >= m_size){
         throw std::out_of_range("Index is out of range");
+    }
+    return ptr[index];
+}
+
+*/
+
+// custum exception
+
+template <class T>
+T& myvector<T>::at(const int& index){
+    if(index >= m_size){
+        throw MyException();
     }
     return ptr[index];
 }
