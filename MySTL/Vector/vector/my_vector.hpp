@@ -1,6 +1,9 @@
 #ifndef my_vector_hpp
 #define my_vector_hpp
-
+class MyException : public std::exception {
+public:
+    const char* what()const noexcept override;
+};
 template <class T>
 class myvector{
     int m_size;
