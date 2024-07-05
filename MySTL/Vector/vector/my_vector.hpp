@@ -15,6 +15,7 @@ public:
     myvector& operator=(myvector&& obj) noexcept;
     myvector& operator = (const myvector& obj);
     T& operator [] (int index);
+    T& at(const int&);
     void print();
     void push_back(const T& obj);
     void push_front(const T& obj);
