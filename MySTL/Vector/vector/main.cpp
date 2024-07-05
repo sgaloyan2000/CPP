@@ -27,6 +27,14 @@ int main ()
     vec.print();
     std::cout<<"size = "<<vec.get_size()<<std::endl;
     std::cout<<"capacity = "<<vec.get_capacity()<<std::endl;
-    std::cout<<"is empety? "<<vec.empty()<<std::endl;
+    std::cout<<"is empty? "<<vec.empty()<<std::endl;
+    std::cout<<vec.at(0)<<std::endl;
+    try{
+        std::cout<<vec.at(10)<<std::endl;
+    }
+    catch(std::out_of_range& e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    
     return 0;
 }
