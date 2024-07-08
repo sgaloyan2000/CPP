@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <exception>
 
 template <class T>
 Matrix<T>::Matrix(){
@@ -139,6 +140,13 @@ int Matrix<T>::get_column()const{
     return column;
 }
 template<class T>
-T* Matrix<T>::operator [] (const int& index)const {
+T* Matrix<T>::operator [] (const int& index) {
     return matrix[index];
+}
+template<class T>
+T Matrix<T>:: at (const int& ro, const int& col){
+    if(ro<0 || ro>=row || col<0 || col>= column){
+        throw std::out_of_range("Index is out of range");
+    }
+    return matrix[ro][col];
 }
