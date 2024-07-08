@@ -14,10 +14,11 @@ public:
     Matrix operator * (const Matrix& obj);
     Matrix operator+(const Matrix& obj);
     void operator () ();
-    T* operator [](const int& index)const;
+    T* operator [](const int& index);
     void rotate();
     int get_row() const;
     int get_column() const;
+    T at(const int&, const int&);
     ~Matrix();
 };
 
