@@ -1,7 +1,7 @@
 #include "matrix.hpp"
 #include <fstream>
 
-void generate_matrix_file(const std::string& filename, const Matrix<int>& data) {
+void generate_matrix_file(const std::string& filename,  Matrix<int>& data) {
     std::ofstream outFile(filename);
 
     if (!outFile) {
@@ -80,11 +80,19 @@ int main() {
     matrix1();
     Matrix<int> matrix2(column, row);
     matrix2();
+    std::cout<<matrix1[2][2]<<std::endl;
+    std::cout<<matrix1.at(2,2)<<std::endl;
+    try {
+        std::cout<< matrix1.at(10, 1)<<std::endl;
+    }
+    catch(std::out_of_range &e){
+        std::cerr<<e.what()<<std::endl;
+    }
     
-    generate_matrix_file("matrix1.txt", matrix1);
-    generate_matrix_file("matrix2.txt", matrix2);
-    Matrix<int> matrix3(read_matrix_from_file("matrix1.txt", "matrix2.txt"));
-    matrix3();
-    generate_matrix_file("output_matrix.txt", matrix3);
+//    generate_matrix_file("matrix1.txt", matrix1);
+//    generate_matrix_file("matrix2.txt", matrix2);
+//    Matrix<int> matrix3(read_matrix_from_file("matrix1.txt", "matrix2.txt"));
+//    matrix3();
+//    generate_matrix_file("output_matrix.txt", matrix3);
     return 0;
 }
